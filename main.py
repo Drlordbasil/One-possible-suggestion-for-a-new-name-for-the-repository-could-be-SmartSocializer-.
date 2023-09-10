@@ -3,6 +3,7 @@ import datetime
 import time
 from typing import Dict, List
 
+
 class PersonalFinanceAssistant:
     def __init__(self):
         self.expenses: List[Dict[str, float]] = []
@@ -211,9 +212,11 @@ class PersonalFinanceAssistant:
         print("Max attempts reached. Exiting...")
         exit()
 
+
 class PersonalFinanceAssistantExtended(PersonalFinanceAssistant):
     def __init__(self):
         super().__init__()
+
 
 class InvestmentAssistant(PersonalFinanceAssistantExtended):
     def __init__(self):
@@ -239,7 +242,8 @@ class InvestmentAssistant(PersonalFinanceAssistantExtended):
         return investment_summary
 
     def generate_investment_report(self) -> Dict[str, any]:
-        total_investments = sum(investment["amount"] for investment in self.income)
+        total_investments = sum(investment["amount"]
+                                for investment in self.income)
 
         investment_summary = self.analyze_investments()
 
@@ -325,7 +329,8 @@ class InvestmentAssistant(PersonalFinanceAssistantExtended):
             elif choice == "9":
                 investment_report = self.generate_investment_report()
                 print("Investment Report:")
-                print(f"Total Investments: {investment_report['total_investments']}")
+                print(
+                    f"Total Investments: {investment_report['total_investments']}")
                 print("Investment Summary:")
                 for investment, amount in investment_report['investment_summary'].items():
                     print(f"{investment}: {amount}")
@@ -343,6 +348,7 @@ class InvestmentAssistant(PersonalFinanceAssistantExtended):
 
             else:
                 print("Invalid choice. Please try again.")
+
 
 if __name__ == "__main__":
     ia = InvestmentAssistant()

@@ -1,17 +1,20 @@
-import json
-import datetime
-import time
 from typing import Dict, List
+import time
+import datetime
+import json
+Optimized Python script:
+
+```python
 
 
 class PersonalFinanceAssistant:
     def __init__(self):
-        self.expenses: List[Dict[str, float]] = []
-        self.income: List[Dict[str, float]] = []
-        self.budget: Dict[str, float] = {}
-        self.financial_goals: List[Dict[str, float]] = []
+        self.expenses = []
+        self.income = []
+        self.budget = {}
+        self.financial_goals = []
 
-    def track_expense(self, category: str, amount: float):
+    def track_expense(self, category, amount):
         expense = {
             "category": category,
             "amount": amount,
@@ -19,7 +22,7 @@ class PersonalFinanceAssistant:
         }
         self.expenses.append(expense)
 
-    def track_income(self, source: str, amount: float):
+    def track_income(self, source, amount):
         income = {
             "source": source,
             "amount": amount,
@@ -27,10 +30,10 @@ class PersonalFinanceAssistant:
         }
         self.income.append(income)
 
-    def create_budget(self, category: str, allocation: float):
+    def create_budget(self, category, allocation):
         self.budget[category] = allocation
 
-    def set_financial_goal(self, goal: str, target_amount: float):
+    def set_financial_goal(self, goal, target_amount):
         financial_goal = {
             "goal": goal,
             "target_amount": target_amount,
@@ -38,35 +41,30 @@ class PersonalFinanceAssistant:
         }
         self.financial_goals.append(financial_goal)
 
-    def update_financial_goal(self, goal: str, amount: float):
+    def update_financial_goal(self, goal, amount):
         for financial_goal in self.financial_goals:
             if financial_goal["goal"] == goal:
                 financial_goal["current_amount"] += amount
                 break
 
-    def analyze_expenses(self) -> Dict[str, float]:
+    def analyze_expenses(self):
         expense_summary = {}
         for expense in self.expenses:
             category = expense["category"]
             amount = expense["amount"]
-            if category in expense_summary:
-                expense_summary[category] += amount
-            else:
-                expense_summary[category] = amount
+            expense_summary[category] = expense_summary.get(
+                category, 0) + amount
         return expense_summary
 
-    def analyze_income(self) -> Dict[str, float]:
+    def analyze_income(self):
         income_summary = {}
         for income in self.income:
             source = income["source"]
             amount = income["amount"]
-            if source in income_summary:
-                income_summary[source] += amount
-            else:
-                income_summary[source] = amount
+            income_summary[source] = income_summary.get(source, 0) + amount
         return income_summary
 
-    def generate_financial_report(self) -> Dict[str, any]:
+    def generate_financial_report(self):
         total_income = sum(income["amount"] for income in self.income)
         total_expenses = sum(expense["amount"] for expense in self.expenses)
         net_worth = total_income - total_expenses
@@ -81,7 +79,7 @@ class PersonalFinanceAssistant:
         }
         return financial_report
 
-    def generate_financial_report_extended(self) -> Dict[str, any]:
+    def generate_financial_report_extended(self):
         total_income = sum(income["amount"] for income in self.income)
         total_expenses = sum(expense["amount"] for expense in self.expenses)
         net_worth = total_income - total_expenses
@@ -222,7 +220,7 @@ class InvestmentAssistant(PersonalFinanceAssistantExtended):
     def __init__(self):
         super().__init__()
 
-    def track_investment(self, investment: str, amount: float):
+    def track_investment(self, investment, amount):
         investment = {
             "investment": investment,
             "amount": amount,
@@ -230,18 +228,16 @@ class InvestmentAssistant(PersonalFinanceAssistantExtended):
         }
         self.income.append(investment)
 
-    def analyze_investments(self) -> Dict[str, float]:
+    def analyze_investments(self):
         investment_summary = {}
         for investment in self.income:
             investment_name = investment["investment"]
             amount = investment["amount"]
-            if investment_name in investment_summary:
-                investment_summary[investment_name] += amount
-            else:
-                investment_summary[investment_name] = amount
+            investment_summary[investment_name] = investment_summary.get(
+                investment_name, 0) + amount
         return investment_summary
 
-    def generate_investment_report(self) -> Dict[str, any]:
+    def generate_investment_report(self):
         total_investments = sum(investment["amount"]
                                 for investment in self.income)
 
@@ -353,3 +349,9 @@ class InvestmentAssistant(PersonalFinanceAssistantExtended):
 if __name__ == "__main__":
     ia = InvestmentAssistant()
     ia.retry_function(ia.autonomous_assistant_extended)
+```
+
+Changes Made:
+- Removed unnecessary type hinting to simplify code.
+- Use `dict.get()` method to simplify code in `analyze_expenses()`, `analyze_income()`, and `analyze_investments()` methods.
+- Removed unnecessary `any` type in return type annotations.
